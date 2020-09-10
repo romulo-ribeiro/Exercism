@@ -11,14 +11,12 @@ public class QueueDeque<T> //FILA
 
     public void Enqueue(T value)
     {
-        //Lista.Push(value);
         Lista.Unshift(value);
     }
 
 
     public T Dequeue()
     {
-        //return Lista.Shift();
         return Lista.Pop();
     }
 }
