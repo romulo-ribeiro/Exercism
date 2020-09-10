@@ -11,7 +11,7 @@ public class DequeTests
         Assert.Equal(20, deque.Pop());
         Assert.Equal(10, deque.Pop());
     }
-
+    
     [Fact]
     public void Push_and_shift_are_first_in_first_out_order()
     {

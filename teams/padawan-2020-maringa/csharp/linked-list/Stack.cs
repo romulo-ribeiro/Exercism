@@ -3,16 +3,17 @@ using System.Collections.Generic;
 
 public class StackDeque<T>
 {
-
+    public Deque<T> Lista { get; set; }
+    public StackDeque()
+    {
+        Lista = new Deque<T>();
+    }
     public void Push(T value)
     {
-        throw new NotImplementedException("You need to implement this function.");
+        Lista.Push(value);
     }
-
-
     public T Pop()
     {
-        throw new NotImplementedException("You need to implement this function.");
-
+        return Lista.Pop();
     }
 }
