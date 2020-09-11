@@ -1,10 +1,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
-public class Clock : IEquatable<Clock>
+public partial class Clock : IEquatable<Clock>, IComparable<Clock>, IComparable
 {
-    int Hours;
-    int Minutes;
+    public int Hours;
+    public int Minutes;
     public Clock(int minutes)
     {
         Hours = ((minutes / 60)) % 24;
@@ -54,6 +55,31 @@ public class Clock : IEquatable<Clock>
     public override string ToString()
     {
         return $"{Hours:D2}:{Minutes:D2}";
+    }
+
+    public int CompareTo([AllowNull] Clock other)
+    {
+        if (this.ToMinutes() > other.ToMinutes())
+        {
+            return 1;
+        }
+        if (this.ToMinutes() < other.ToMinutes())
+        {
+            return -1;
+        }
+        return 0; ;
+    }
+
+    public int CompareTo(object obj)
+    {
+        if (obj is Clock other)
+        {
+            return CompareTo(other);
+        }
+        else
+        {
+            throw new ArgumentException();
+        }
     }
 
     public static Clock operator +(Clock clock, int value)

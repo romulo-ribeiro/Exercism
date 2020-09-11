@@ -4,6 +4,7 @@ using Xunit;
 
 public class ClockComparableTests
 {
+    
     [Fact]
     public void Equality()
     {
@@ -73,7 +74,7 @@ public class ClockComparableTests
         Assert.Equal(-1, new Clock(3, 0).CompareTo(new Clock(-1, -120)));
         Assert.Equal(-1, new Clock(3, 0).CompareTo(new Clock(0, -180)));
     }
-
+    
     [Fact]
     public void Equality_object()
     {

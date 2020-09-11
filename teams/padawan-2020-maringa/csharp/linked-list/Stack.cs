@@ -10,10 +10,12 @@ public class StackDeque<T>
     }
     public void Push(T value)
     {
+        //Lista.Push(value);
         Lista.Unshift(value);
     }
     public T Pop()
     {
+        //return Lista.Pop()
         return Lista.Shift();
     }
 }
