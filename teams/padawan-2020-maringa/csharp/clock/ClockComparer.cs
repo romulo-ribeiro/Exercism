@@ -5,13 +5,9 @@ using System.Text;
 
 static class ClockComparer
 {
-
     public static Ascending Ascending => new Ascending();
     public static Descending Descending => new Descending();
     public static DescendingHourAscendingMinutes DescendingHourAscendingMinutes => new DescendingHourAscendingMinutes();
-
-
-
 }
 class Ascending : IComparer<Clock>
 {
