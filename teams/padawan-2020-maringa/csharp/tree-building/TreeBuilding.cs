@@ -22,15 +22,6 @@ public static class TreeBuilder
 {
     public static Tree BuildTree(IEnumerable<TreeBuildingRecord> records)
     {
-        //var ordered = new SortedList<int, TreeBuildingRecord>(); //Cria uma lista sortida de inteiros e TreeBuildingRecord
-
-        //foreach (var record in records)
-        //{
-        //    ordered.Add(record.RecordId, record); //Preenche a lista ordered ordenada pelos RecordId's
-        //}
-
-        //records = ordered.Values; //Organiza records pela sequencia de ordered
-
         records = records.OrderBy(q => q.RecordId);
 
         List<Tree> trees = new List<Tree>(); //Cria uma lista de tree's
@@ -42,36 +33,26 @@ public static class TreeBuilder
             trees.Add(t); //Adiciona a tree t na lista de tree's
 
             ValidateTree(previousRecordId, t);
-
             ++previousRecordId;
         }
-
-        if (trees.Count == 0)
+        if (trees.Count != 0)
         {
-            throw new ArgumentException(); //Se tree é vazio dá erro
+            for (int i = 1; i < trees.Count; i++)
+            {
+                Tree t = trees.First(x => x.Id == i);
+                Tree parent = trees.First(x => x.Id == t.ParentId);
+                parent.Children.Add(t);
+            }
+            return trees.First(t => t.Id == 0);
         }
-
-        for (int i = 1; i < trees.Count; i++)
-        {
-            Tree t = trees.First(x => x.Id == i);
-            Tree parent = trees.First(x => x.Id == t.ParentId);
-            parent.Children.Add(t);
-        }
-
-        Tree r = trees.First(t => t.Id == 0);
-        return r;
+        throw new ArgumentException(); //Se tree é vazio dá erro
     }
 
     private static void ValidateTree(int previousRecordId, Tree t)
     {
-        if (t.Id == 0 && t.ParentId == 0)
+        if ((t.Id != 0 || t.ParentId != 0) && (t.ParentId >= t.Id || t.Id != previousRecordId)) //Testa se é o root
         {
-            return;
+            throw new ArgumentException();
         }
-        if (t.ParentId < t.Id && t.Id == previousRecordId)
-        {
-            return;
-        }
-        throw new ArgumentException();
     }
 }
